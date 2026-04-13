@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+node_modules/
+.next/
+.DS_Store
+mysql_data/*
+!mysql_data/.gitkeep
+
+backend/app/uploads/

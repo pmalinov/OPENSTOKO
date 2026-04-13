@@ -1,0 +1,86 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: openopenstoko_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-openopenstoko}
+      MYSQL_USER: ${MYSQL_USER:-openopenstoko}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-openopenstoko}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -uroot -p$${MYSQL_ROOT_PASSWORD:-rootpass} --silent']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: openopenstoko_backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql+pymysql://${MYSQL_USER:-openopenstoko}:${MYSQL_PASSWORD:-openopenstoko}@db:3306/${MYSQL_DATABASE:-openopenstoko}?charset=utf8mb4
+      SECRET_KEY: ${SECRET_KEY:-change-this-in-production}
+      ACCESS_TOKEN_EXPIRE_MINUTES: 480
+      BOOTSTRAP_ADMIN_USERNAME: ${BOOTSTRAP_ADMIN_USERNAME:-admin}
+      BOOTSTRAP_ADMIN_FULL_NAME: ${BOOTSTRAP_ADMIN_FULL_NAME:-System Administrator}
+      BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:-admin123}
+      RESET_ADMIN_PASSWORD_ON_START: ${RESET_ADMIN_PASSWORD_ON_START:-false}
+      DB_STARTUP_MAX_ATTEMPTS: ${DB_STARTUP_MAX_ATTEMPTS:-30}
+      DB_STARTUP_RETRY_SECONDS: ${DB_STARTUP_RETRY_SECONDS:-2}
+      BACKUP_ENABLED: true
+      BACKUP_HOUR_UTC: 2
+      BACKUP_EMAIL_FROM: ${BACKUP_EMAIL_FROM:-noreply@openopenstoko.local}
+      BACKUP_EMAIL_TO: ${BACKUP_EMAIL_TO:-admin@openopenstoko.local}
+      SMTP_HOST: ${SMTP_HOST:-mailhog}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+    ports:
+      - '8000:8000'
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)\"",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./backend/app:/app/app
+
+  frontend:
+    build: ./frontend
+    container_name: openopenstoko_frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-/api}
+      OPENSTOKO_BACKEND_ORIGIN: ${OPENSTOKO_BACKEND_ORIGIN:-http://backend:8000}
+    command: sh -lc "rm -rf /app/.next && npm install && npm run dev"
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    container_name: openopenstoko_phpmyadmin
+    profiles: ['dev-tools']
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 0
+    ports:
+      - '${PHPMYADMIN_PORT:-8081}:80'
