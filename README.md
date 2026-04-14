@@ -1,6 +1,5 @@
 # OPENSTOKO: Open-Source Warehouse Management Application
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
 
 OPENSTOKO is a warehouse and sales operations platform built for small and medium businesses.
 It provides stock control, operator checkout, serial-number traceability, warranty tracking, and audit-safe admin management.

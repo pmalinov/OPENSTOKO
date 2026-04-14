@@ -1,6 +1,6 @@
 # OPENSTOKO User Guide (English)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 OPENSTOKO is a warehouse and sales operations system with role-based access.
 

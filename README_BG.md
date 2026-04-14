@@ -1,6 +1,6 @@
 # OPENSTOKO Потребителско Ръководство (Български)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 OPENSTOKO е система за склад и продажби с ролеви достъп, изградена върху FastAPI + Next.js + MySQL 8.4.
 

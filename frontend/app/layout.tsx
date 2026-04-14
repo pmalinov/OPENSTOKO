@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'OPENSTOKO',
-  description: 'OPENSTOKO: The Intelligent Warehouse Operating System'
+  description: 'OPENSTOKO: Open-source warehouse management application'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

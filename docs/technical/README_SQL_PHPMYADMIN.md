@@ -1,6 +1,6 @@
 # OPENSTOKO SQL Toolkit (MySQL 8.4 / phpMyAdmin)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 Практически SQL справочник за текущата OPENSTOKO база (MySQL 8.4).
 

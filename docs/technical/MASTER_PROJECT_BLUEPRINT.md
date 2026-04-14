@@ -1,6 +1,6 @@
 # OPENSTOKO Master Project Blueprint (Single-Session Rebuild Prompt)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 Use this as a **master prompt** to rebuild OPENSTOKO from scratch in one session.
 The target is to reproduce the current behavior, architecture, and UX logic.

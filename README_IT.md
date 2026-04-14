@@ -1,6 +1,6 @@
 # OPENSTOKO Guida Utente (Italiano)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 OPENSTOKO e un sistema per magazzino e vendite con accesso per ruoli, basato su FastAPI + Next.js + MySQL 8.4.
 

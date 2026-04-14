@@ -1,6 +1,6 @@
 # OPENSTOKO: Technical Workflow & File Map
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 This document explains the full technical workflow of the project: architecture, file ownership, request flows, calculations, and runtime behavior.
 

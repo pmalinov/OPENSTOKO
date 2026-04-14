@@ -1,6 +1,6 @@
 # OPENSTOKO Release Docs Index
 
-Documentation release baseline: **2026-03-15**
+
 Stack baseline: **FastAPI + Next.js + MySQL 8.4 + Docker Compose**
 
 ## Scope (locked set)

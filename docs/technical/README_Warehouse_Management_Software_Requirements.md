@@ -1,6 +1,6 @@
 # OPENSTOKO Warehouse Requirements & Implementation Status (2026)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 Този файл е актуализирана версия на продуктовите изисквания и реалния статус на имплементация.
 
