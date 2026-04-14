@@ -1,6 +1,6 @@
 # OPENSTOKO Scripts (Operational)
 
-> Documentation Release: **2026-03-15** (Release Docs baseline).
+
 
 This folder contains operational scripts for reset/seeding in existing OPENSTOKO deployments.
 
